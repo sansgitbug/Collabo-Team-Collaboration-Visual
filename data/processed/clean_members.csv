@@ -1,0 +1,6 @@
+member_id,team_id,name,role,joined_at,sum_weight,tasks_completed,estimated_contribution
+M001,T01,Jordan Singh,isolated,2025-08-31 11:57:40.770857,922.243,14,667.9701
+M002,T01,Riley Das,regular,2025-10-13 11:57:40.770857,1558.864,51,1172.8048
+M003,T01,Alex Gupta,leader,2025-09-15 11:57:40.770857,5160.685,145,3844.4795
+M004,T01,Avery Iyer,active,2025-09-28 11:57:40.770857,2841.621,89,2131.5347
+M005,T01,Alex Kumar,passive,2025-10-11 11:57:40.770857,821.718,38,636.0025999999999

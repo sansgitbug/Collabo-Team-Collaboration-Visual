@@ -1,0 +1,54 @@
+{
+    "generated_date": "2025-11-21 07:43:27",
+    "summary": {
+        "total_issues": 9,
+        "critical": 0,
+        "high": 2,
+        "medium": 6,
+        "info": 1
+    },
+    "immediate_actions_this_week": [],
+    "short_term_1_2_weeks": [
+        {
+            "issue": "Passive Participation - ",
+            "top_action": "**Engagement Strategy:** Directly tag Jordan Singh in discussions requiring their expertise"
+        },
+        {
+            "issue": "Unbalanced Participation",
+            "top_action": "**Load Balancing:** Redistribute tasks from high to low contributors"
+        }
+    ],
+    "medium_term_3_4_weeks": [
+        {
+            "issue": "Over-Dominant - Potential Bottleneck",
+            "top_action": "**Risk Mitigation:** Alex Gupta may be a single point of failure - distribute critical knowledge"
+        },
+        {
+            "issue": "Weak Collaboration Links",
+            "top_action": "**Structured Collaboration:** Assign joint tasks requiring Jordan Singh to work with: Riley Das, Alex Gupta, Alex Kumar"
+        },
+        {
+            "issue": "Weak Collaboration Links",
+            "top_action": "**Structured Collaboration:** Assign joint tasks requiring Riley Das to work with: Jordan Singh"
+        },
+        {
+            "issue": "Weak Collaboration Links",
+            "top_action": "**Structured Collaboration:** Assign joint tasks requiring Alex Gupta to work with: Jordan Singh"
+        },
+        {
+            "issue": "Weak Collaboration Links",
+            "top_action": "**Structured Collaboration:** Assign joint tasks requiring Alex Kumar to work with: Jordan Singh, Riley Das, Alex Gupta"
+        },
+        {
+            "issue": "Multiple Subgroups Detected",
+            "top_action": "**Cross-Group Tasks:** Assign projects requiring collaboration across subgroups"
+        }
+    ],
+    "ongoing_practices": [
+        "Monitor team metrics weekly using the dashboard",
+        "Conduct bi-weekly retrospectives",
+        "Track individual activity scores",
+        "Review network graphs for emerging patterns",
+        "Gather team feedback monthly"
+    ]
+}

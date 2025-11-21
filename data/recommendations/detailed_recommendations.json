@@ -1,0 +1,339 @@
+{
+    "generated_at": "2025-11-21T07:43:27.333098",
+    "team_id": "T01",
+    "total_recommendations": 9,
+    "recommendations": [
+        {
+            "member_id": "M001",
+            "member_name": "Jordan Singh",
+            "role": "isolated",
+            "issue": "Passive Participation - ",
+            "severity": "HIGH",
+            "priority": 2,
+            "current_metrics": {
+                "messages_sent": 316,
+                "messages_received": 780,
+                "activity_score": 635.26
+            },
+            "recommendations": [
+                "**Engagement Strategy:** Directly tag Jordan Singh in discussions requiring their expertise",
+                "**Task Leadership:** Assign Jordan Singh as lead on a small sub-task to increase ownership",
+                "**Check-in Protocol:** Weekly progress meetings to identify blockers",
+                "**Peer Pairing:** Partner Jordan Singh with a dominant contributor for knowledge transfer",
+                "**Recognition:** Publicly acknowledge any contributions in team channels to build confidence",
+                "**Barrier Analysis:** Survey to identify what's preventing active participation"
+            ],
+            "suggested_actions": {
+                "this_week": [
+                    "Assign 1 specific task to Jordan Singh with clear deliverables",
+                    "Tag Jordan Singh in 2-3 relevant discussions",
+                    "Send encouraging direct message acknowledging recent work"
+                ],
+                "next_2_weeks": [
+                    "Increase task complexity gradually",
+                    "Include in decision-making discussions",
+                    "Monitor for improved interaction patterns"
+                ]
+            },
+            "expected_outcomes": [
+                "30% increase in outbound messages within 1 week",
+                "Complete assigned tasks on time",
+                "Begin initiating conversations within 2 weeks"
+            ]
+        },
+        {
+            "member_id": "M003",
+            "member_name": "Alex Gupta",
+            "role": "leader",
+            "issue": "Over-Dominant - Potential Bottleneck",
+            "severity": "MEDIUM",
+            "priority": 3,
+            "current_metrics": {
+                "messages_sent": 2617,
+                "activity_score": 3190.77,
+                "centrality": 2.0
+            },
+            "positive_notes": [
+                "Alex Gupta is highly engaged and contributes significantly",
+                "Strong network centrality indicates key role in team coordination"
+            ],
+            "recommendations": [
+                "**Risk Mitigation:** Alex Gupta may be a single point of failure - distribute critical knowledge",
+                "**Delegation Training:** Coach Alex Gupta to delegate more tasks to passive members",
+                "**Burnout Prevention:** Monitor workload to prevent exhaustion",
+                "**Mentorship Role:** Formalize Alex Gupta as mentor to passive team members",
+                "**Documentation:** Ensure {name}'s knowledge is documented for team resilience",
+                "**Balanced Participation:** Encourage pauses in discussions to let others contribute"
+            ],
+            "suggested_actions": {
+                "immediate": [
+                    "Thank Alex Gupta for exceptional contributions",
+                    "Assess current workload and identify tasks to redistribute",
+                    "Schedule discussion about sustainability"
+                ],
+                "ongoing": [
+                    "Pair with passive members for knowledge transfer",
+                    "Create documentation of processes owned by this member",
+                    "Monitor for signs of burnout"
+                ]
+            },
+            "expected_outcomes": [
+                "More balanced team participation",
+                "Reduced dependency on single member",
+                "Improved team resilience"
+            ]
+        },
+        {
+            "issue_type": "Weak Collaboration Links",
+            "severity": "MEDIUM",
+            "priority": 4,
+            "pattern": "Jordan Singh has weak connections with 3 team member(s)",
+            "affected_pairs": [
+                {
+                    "from": "Jordan Singh",
+                    "to": "Riley Das",
+                    "weight": 46.53
+                },
+                {
+                    "from": "Jordan Singh",
+                    "to": "Alex Gupta",
+                    "weight": 45.33
+                },
+                {
+                    "from": "Jordan Singh",
+                    "to": "Alex Kumar",
+                    "weight": 71.26
+                }
+            ],
+            "recommendations": [
+                "**Structured Collaboration:** Assign joint tasks requiring Jordan Singh to work with: Riley Das, Alex Gupta, Alex Kumar",
+                "**Ice Breaker Activities:** Facilitate informal team bonding sessions",
+                "**Cross-Functional Projects:** Create opportunities for these members to collaborate",
+                "**Communication Channels:** Ensure all members are active in shared communication spaces",
+                "**Conflict Check:** Verify no interpersonal issues are causing avoidance"
+            ],
+            "suggested_activities": [
+                "Pair programming sessions (if technical team)",
+                "Joint presentation preparation",
+                "Peer review assignments",
+                "Shared responsibility for deliverable sections"
+            ],
+            "expected_outcomes": [
+                "Increased interaction frequency between weak-link pairs",
+                "More balanced communication network",
+                "Improved team cohesion"
+            ]
+        },
+        {
+            "issue_type": "Weak Collaboration Links",
+            "severity": "MEDIUM",
+            "priority": 4,
+            "pattern": "Riley Das has weak connections with 1 team member(s)",
+            "affected_pairs": [
+                {
+                    "from": "Riley Das",
+                    "to": "Jordan Singh",
+                    "weight": 37.33
+                }
+            ],
+            "recommendations": [
+                "**Structured Collaboration:** Assign joint tasks requiring Riley Das to work with: Jordan Singh",
+                "**Ice Breaker Activities:** Facilitate informal team bonding sessions",
+                "**Cross-Functional Projects:** Create opportunities for these members to collaborate",
+                "**Communication Channels:** Ensure all members are active in shared communication spaces",
+                "**Conflict Check:** Verify no interpersonal issues are causing avoidance"
+            ],
+            "suggested_activities": [
+                "Pair programming sessions (if technical team)",
+                "Joint presentation preparation",
+                "Peer review assignments",
+                "Shared responsibility for deliverable sections"
+            ],
+            "expected_outcomes": [
+                "Increased interaction frequency between weak-link pairs",
+                "More balanced communication network",
+                "Improved team cohesion"
+            ]
+        },
+        {
+            "issue_type": "Weak Collaboration Links",
+            "severity": "MEDIUM",
+            "priority": 4,
+            "pattern": "Alex Gupta has weak connections with 1 team member(s)",
+            "affected_pairs": [
+                {
+                    "from": "Alex Gupta",
+                    "to": "Jordan Singh",
+                    "weight": 142.22
+                }
+            ],
+            "recommendations": [
+                "**Structured Collaboration:** Assign joint tasks requiring Alex Gupta to work with: Jordan Singh",
+                "**Ice Breaker Activities:** Facilitate informal team bonding sessions",
+                "**Cross-Functional Projects:** Create opportunities for these members to collaborate",
+                "**Communication Channels:** Ensure all members are active in shared communication spaces",
+                "**Conflict Check:** Verify no interpersonal issues are causing avoidance"
+            ],
+            "suggested_activities": [
+                "Pair programming sessions (if technical team)",
+                "Joint presentation preparation",
+                "Peer review assignments",
+                "Shared responsibility for deliverable sections"
+            ],
+            "expected_outcomes": [
+                "Increased interaction frequency between weak-link pairs",
+                "More balanced communication network",
+                "Improved team cohesion"
+            ]
+        },
+        {
+            "issue_type": "Weak Collaboration Links",
+            "severity": "MEDIUM",
+            "priority": 4,
+            "pattern": "Alex Kumar has weak connections with 3 team member(s)",
+            "affected_pairs": [
+                {
+                    "from": "Alex Kumar",
+                    "to": "Jordan Singh",
+                    "weight": 23.04
+                },
+                {
+                    "from": "Alex Kumar",
+                    "to": "Riley Das",
+                    "weight": 230.11
+                },
+                {
+                    "from": "Alex Kumar",
+                    "to": "Alex Gupta",
+                    "weight": 234.88
+                }
+            ],
+            "recommendations": [
+                "**Structured Collaboration:** Assign joint tasks requiring Alex Kumar to work with: Jordan Singh, Riley Das, Alex Gupta",
+                "**Ice Breaker Activities:** Facilitate informal team bonding sessions",
+                "**Cross-Functional Projects:** Create opportunities for these members to collaborate",
+                "**Communication Channels:** Ensure all members are active in shared communication spaces",
+                "**Conflict Check:** Verify no interpersonal issues are causing avoidance"
+            ],
+            "suggested_activities": [
+                "Pair programming sessions (if technical team)",
+                "Joint presentation preparation",
+                "Peer review assignments",
+                "Shared responsibility for deliverable sections"
+            ],
+            "expected_outcomes": [
+                "Increased interaction frequency between weak-link pairs",
+                "More balanced communication network",
+                "Improved team cohesion"
+            ]
+        },
+        {
+            "issue_type": "Strong Collaboration Pairs Identified",
+            "severity": "INFO",
+            "priority": 6,
+            "pattern": "3 strong collaboration pair(s) detected",
+            "strong_pairs": [
+                {
+                    "from": "Alex Gupta",
+                    "to": "Riley Das",
+                    "weight": 1634.72
+                },
+                {
+                    "from": "Alex Gupta",
+                    "to": "Avery Iyer",
+                    "weight": 1506.66
+                },
+                {
+                    "from": "Alex Gupta",
+                    "to": "Alex Kumar",
+                    "weight": 1535.33
+                }
+            ],
+            "positive_notes": [
+                "Strong pairs indicate effective working relationships",
+                "These partnerships can be leveraged for team success"
+            ],
+            "recommendations": [
+                "**Best Practice Sharing:** Document what makes these collaborations successful",
+                "**Mentorship Pairing:** Use strong pairs as models for weaker collaborators",
+                "**Risk Awareness:** Ensure these pairs aren't becoming siloed from the rest of the team",
+                "**Knowledge Distribution:** Rotate these members into different pairings occasionally",
+                "**Celebration:** Recognize and celebrate effective collaboration publicly"
+            ],
+            "cautions": [
+                "Monitor for potential clique formation excluding other members",
+                "Ensure dependency doesn't create bottlenecks if one member is unavailable"
+            ]
+        },
+        {
+            "issue_type": "Multiple Subgroups Detected",
+            "severity": "MEDIUM",
+            "priority": 4,
+            "pattern": "Team has fragmented into 2 subgroups",
+            "subgroups": [
+                {
+                    "subgroup_id": 1,
+                    "members": [
+                        "Avery Iyer",
+                        "Jordan Singh",
+                        "Alex Kumar"
+                    ],
+                    "size": 3
+                },
+                {
+                    "subgroup_id": 2,
+                    "members": [
+                        "Riley Das",
+                        "Alex Gupta"
+                    ],
+                    "size": 2
+                }
+            ],
+            "implications": [
+                "Subgroups can lead to information silos",
+                "Reduced cross-pollination of ideas",
+                "Potential for misalignment on project goals"
+            ],
+            "recommendations": [
+                "**Cross-Group Tasks:** Assign projects requiring collaboration across subgroups",
+                "**Rotation Strategy:** Periodically rotate members between subgroups",
+                "**All-Hands Meetings:** Regular full-team sync meetings to ensure alignment",
+                "**Shared Goals:** Emphasize team-level objectives over subgroup achievements",
+                "**Bridge Builders:** Identify and empower members who connect subgroups",
+                "**Communication Audit:** Review if certain platforms favor specific subgroups"
+            ],
+            "suggested_activities": [
+                "Team-building activities involving cross-subgroup mixing",
+                "Shared deliverables requiring input from all subgroups",
+                "Round-robin task assignments to break patterns"
+            ],
+            "expected_outcomes": [
+                "Increased inter-subgroup communication",
+                "More unified team identity",
+                "Better information flow across the entire team"
+            ]
+        },
+        {
+            "issue_type": "Unbalanced Participation",
+            "severity": "HIGH",
+            "priority": 3,
+            "interpretation": "Large disparity in contribution levels across team members",
+            "statistics": {
+                "mean_activity": 1647.34,
+                "std_deviation": 1043.14,
+                "coefficient_variation": 0.63
+            },
+            "recommendations": [
+                "**Load Balancing:** Redistribute tasks from high to low contributors",
+                "**Skill Development:** Train less active members to build confidence",
+                "**Participation Equity:** Set minimum participation expectations",
+                "**Rotating Roles:** Implement rotating responsibilities to spread engagement"
+            ],
+            "expected_outcomes": [
+                "More balanced activity scores across team",
+                "Reduced coefficient of variation to < 0.5",
+                "Improved team satisfaction"
+            ]
+        }
+    ]
+}

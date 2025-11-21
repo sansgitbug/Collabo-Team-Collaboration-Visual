@@ -1,0 +1,244 @@
+{
+    "generated_at": "2025-11-21T08:26:54.782152",
+    "project_context": "Work Project Simulation - Team Collaboration Analysis",
+    "team_structure": {
+        "team_lead": "Sanjana",
+        "active_collaborator": "Tvisha",
+        "problematic_member": "Vikram"
+    },
+    "analysis_summary": {
+        "total_interactions": 84,
+        "duration_minutes": 39,
+        "platforms_used": [
+            "whatsapp",
+            "discord"
+        ],
+        "critical_issues_found": 3,
+        "severity": "HIGH"
+    },
+    "key_metrics": {
+        "Sanjana": {
+            "role": "Team Lead",
+            "messages_sent": 49,
+            "workload_percentage": 58.3,
+            "mentions_to_vikram": 13,
+            "mentions_to_tvisha": 10,
+            "status": "Overburdened - carrying team communication load"
+        },
+        "Tvisha": {
+            "role": "Active Collaborator",
+            "messages_sent": 21,
+            "workload_percentage": 25.0,
+            "mentions_to_sanjana": 8,
+            "mentions_to_vikram": 6,
+            "status": "Performing well - responsive and engaged"
+        },
+        "Vikram": {
+            "role": "Team Member",
+            "messages_sent": 14,
+            "workload_percentage": 16.7,
+            "response_to_lead": 4,
+            "response_ratio": 0.31,
+            "status": "CRITICAL - Unresponsive to team lead"
+        }
+    },
+    "recommendations": {
+        "Sanjana_Team_Lead": {
+            "current_situation": "You are carrying 58.3% of team communication burden. You mentioned Vikram 13 times with only 4 responses - indicating a serious responsiveness issue.",
+            "immediate_actions": [
+                {
+                    "priority": "CRITICAL",
+                    "action": "Escalate Vikram's Non-Responsiveness",
+                    "rationale": "After 13 unanswered mentions, this is beyond poor communication - it's project risk",
+                    "specific_steps": [
+                        "Document all instances where Vikram was tagged but didn't respond",
+                        "Schedule mandatory 1-on-1 video call with Vikram within 24 hours",
+                        "Set explicit response time expectations: acknowledge within 2 hours, respond within 4 hours",
+                        "If unresponsive to meeting request, escalate to project supervisor/professor immediately",
+                        "Create written record of communication attempts for accountability"
+                    ]
+                },
+                {
+                    "priority": "HIGH",
+                    "action": "Redistribute Workload",
+                    "rationale": "You're handling 49 messages vs Vikram's 14 - unsustainable for team lead",
+                    "specific_steps": [
+                        "Delegate specific, bounded tasks to Tvisha (who is responsive)",
+                        "Stop chasing Vikram for every update - set hard deadlines with consequences",
+                        "Document task assignments formally (not just tags in chat)",
+                        "Use project management tool (Trello/Asana) for task accountability, not just WhatsApp"
+                    ]
+                },
+                {
+                    "priority": "MEDIUM",
+                    "action": "Implement Structured Communication Protocol",
+                    "rationale": "Tagging 13 times shows current informal approach isn't working",
+                    "specific_steps": [
+                        "Daily standup messages: Everyone posts status by 10 AM",
+                        "Response SLA: Acknowledge within 2 hours, detailed response within 4 hours",
+                        "If someone misses standup twice, automatic escalation",
+                        "Use formal channels for work communication, not casual chat style"
+                    ]
+                }
+            ],
+            "what_to_stop_doing": [
+                "\u274c Stop repeatedly tagging Vikram without consequences - it enables bad behavior",
+                "\u274c Stop carrying his workload - let deadlines be missed if he doesn't respond",
+                "\u274c Stop informal 'check-in' messages - move to formal status reports",
+                "\u274c Stop assuming he'll eventually respond - treat non-response as escalation trigger"
+            ],
+            "what_to_start_doing": [
+                "\u2705 Document everything - timestamps of tags, responses, missed deadlines",
+                "\u2705 Set clear consequences: 2 missed standups = formal warning, 3 = escalation",
+                "\u2705 Use Tvisha more effectively - she's responsive and capable",
+                "\u2705 Protect your time - stop chasing, start enforcing accountability",
+                "\u2705 Formal weekly team meetings (video call, mandatory attendance, recorded)"
+            ],
+            "leadership_feedback": "You're doing the right thing by trying to engage Vikram, but you've crossed from 'good leader' into 'enabling non-performance'. It's time to enforce accountability, not just request responses."
+        },
+        "Tvisha_Active_Collaborator": {
+            "current_situation": "You are a model team member with 21 messages and responsive interaction patterns. You engage with both Sanjana (8 mentions) and Vikram (6 mentions).",
+            "strengths": [
+                "\u2713 Consistent communication across platforms (WhatsApp + Discord)",
+                "\u2713 Responsive to team lead's requests",
+                "\u2713 Attempts to engage unresponsive teammate",
+                "\u2713 Balanced workload contribution (25% of team messages)"
+            ],
+            "recommendations": [
+                {
+                    "priority": "LOW",
+                    "action": "Continue Current Performance",
+                    "rationale": "Your collaboration patterns are healthy and productive",
+                    "specific_steps": [
+                        "Maintain current response times and engagement levels",
+                        "Continue bidirectional communication with Sanjana",
+                        "Keep attempting to engage Vikram but don't take it personally if he doesn't respond"
+                    ]
+                },
+                {
+                    "priority": "MEDIUM",
+                    "action": "Support Team Lead Without Taking On Extra Burden",
+                    "rationale": "Sanjana may need support but you shouldn't compensate for Vikram's non-performance",
+                    "specific_steps": [
+                        "Offer to take on well-defined tasks, but set boundaries",
+                        "Don't let Sanjana dump Vikram's work on you without recognition",
+                        "Support Sanjana in documentation of Vikram's non-responsiveness",
+                        "Be willing to go on record about team dynamics if escalation happens"
+                    ]
+                }
+            ],
+            "peer_feedback": "You're doing excellent work. Your responsiveness is what makes this team functional. Don't let Vikram's issues drag down your performance or morale."
+        },
+        "Vikram_Unresponsive_Member": {
+            "current_situation": "CRITICAL PERFORMANCE ISSUE: You have only 14 messages (16.7% of team communication). You were mentioned 19 times by teammates but only responded with 7 mentions - a response ratio of 0.31.",
+            "severity": "CRITICAL - Project Risk",
+            "issues_identified": [
+                "1. Non-responsiveness: Team lead tagged you 13 times with minimal response",
+                "2. Low participation: Only 16.7% of team communication",
+                "3. Broken accountability: Multiple mentions across WhatsApp AND Discord ignored",
+                "4. Team dependency: Your lack of response forces Sanjana to over-work (49 messages)"
+            ],
+            "immediate_requirements": [
+                {
+                    "requirement": "Respond to ALL Outstanding Tags Within 2 Hours",
+                    "consequence": "If not done, formal escalation to supervisor",
+                    "action": "Go through WhatsApp and Discord, respond to every @ mention you've received"
+                },
+                {
+                    "requirement": "Daily Status Updates",
+                    "consequence": "Missed standup = immediate follow-up call, 2 misses = formal warning",
+                    "action": "Post by 10 AM daily: What you did yesterday, what you're doing today, any blockers"
+                },
+                {
+                    "requirement": "Acknowledge Receipt Within 2 Hours of Being Tagged",
+                    "consequence": "Non-acknowledgment treated as unavailability, tasks reassigned",
+                    "action": "Even if you can't fully respond, reply with 'Seen, will respond by [time]'"
+                },
+                {
+                    "requirement": "Attend Mandatory Weekly Team Meeting (Video)",
+                    "consequence": "Miss without advance notice = formal documentation",
+                    "action": "30 minutes, camera on, prepared with status update"
+                }
+            ],
+            "root_cause_analysis": [
+                "Possible reasons for non-responsiveness (Vikram should self-identify which applies):",
+                "\u2022 Technical issues: Not receiving notifications? Check app settings.",
+                "\u2022 Time management: Overwhelmed with other commitments? Communicate capacity constraints.",
+                "\u2022 Confusion: Unclear what's expected? Ask for clarification explicitly.",
+                "\u2022 Disengagement: Not invested in project? This needs to be addressed openly.",
+                "\u2022 Interpersonal: Issues with team members? Raise privately with supervisor.",
+                ""
+            ],
+            "performance_improvement_plan": {
+                "week_1": [
+                    "Respond to ALL outstanding tags within 24 hours",
+                    "Post daily status updates",
+                    "Attend team meeting and explain situation",
+                    "Identify root cause of non-responsiveness"
+                ],
+                "week_2": [
+                    "Maintain 100% response rate (within 4 hours)",
+                    "Complete at least one assigned task",
+                    "Proactively reach out with questions/blockers",
+                    "Demonstrate improvement in engagement metrics"
+                ],
+                "success_criteria": "Increase message count from 14 to at least 16 (20% of team communication)",
+                "failure_outcome": "Formal performance review with supervisor, possible team restructuring"
+            },
+            "direct_feedback": "Your current level of engagement is unacceptable for a team project. You have been given multiple opportunities to respond. This is now a formal performance issue, not just 'quiet participation'. Immediate improvement required."
+        }
+    },
+    "management_actions": {
+        "for_supervisor_professor": {
+            "situation": "Team with clear unresponsive member issue requiring intervention",
+            "immediate_actions": [
+                {
+                    "action": "Meet with Vikram Individually",
+                    "timeline": "Within 48 hours",
+                    "purpose": "Determine root cause of non-responsiveness and set clear expectations",
+                    "questions_to_ask": [
+                        "Are you receiving notifications from team channels?",
+                        "Do you understand your responsibilities on this project?",
+                        "Is there something preventing you from engaging with the team?",
+                        "Are there conflicts with team members we should address?",
+                        "What do you need to be successful in this project?"
+                    ]
+                },
+                {
+                    "action": "Acknowledge Sanjana's Leadership Challenges",
+                    "timeline": "Within 72 hours",
+                    "purpose": "Recognize she's doing everything right but facing team member issues",
+                    "talking_points": [
+                        "You've documented appropriate attempts to engage Vikram",
+                        "Your communication frequency is appropriate for a team lead",
+                        "This is not a reflection on your leadership",
+                        "We will support you in enforcing accountability"
+                    ]
+                },
+                {
+                    "action": "Set Formal Performance Expectations",
+                    "timeline": "This week",
+                    "deliverable": "Written communication protocol with consequences",
+                    "requirements": [
+                        "Daily status updates (10 AM deadline)",
+                        "4-hour response time to @ mentions",
+                        "Mandatory weekly team meeting attendance",
+                        "Minimum 20% contribution to team communication"
+                    ]
+                }
+            ],
+            "medium_term_actions": [
+                "Monitor team chat daily for 2 weeks to verify Vikram improvement",
+                "Hold Vikram accountable to performance improvement plan",
+                "Consider team restructuring if no improvement within 2 weeks",
+                "Ensure Sanjana's grade isn't impacted by Vikram's non-performance",
+                "Document everything for academic integrity if needed"
+            ],
+            "alternative_approaches": [
+                "Option 1: Give Vikram one more week with formal PIP, then reassign him to individual project",
+                "Option 2: Reduce Vikram's role to 'contributor' vs 'core team member', adjust grading accordingly",
+                "Option 3: Add check-in meetings for Vikram (with supervisor) 2x weekly until responsive"
+            ]
+        }
+    }
+}

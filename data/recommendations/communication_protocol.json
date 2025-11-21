@@ -1,0 +1,81 @@
+{
+    "title": "Recommended Team Communication Protocol",
+    "last_updated": "2025-11-21",
+    "daily_practices": {
+        "morning_standup": {
+            "frequency": "Daily",
+            "duration": "15 minutes",
+            "format": "Each member shares: (1) Yesterday's progress, (2) Today's plan, (3) Blockers",
+            "platform": "Video call or Slack"
+        },
+        "active_hours": {
+            "recommended": "9 AM - 6 PM team timezone",
+            "expectation": "Respond to urgent messages within 2 hours during active hours"
+        },
+        "status_updates": {
+            "frequency": "End of day",
+            "format": "Brief message in team channel summarizing accomplishments"
+        }
+    },
+    "weekly_practices": {
+        "team_sync": {
+            "frequency": "Weekly",
+            "duration": "30-45 minutes",
+            "agenda": [
+                "Review progress toward milestones",
+                "Discuss blockers and solutions",
+                "Plan next week's priorities",
+                "Celebrate wins"
+            ]
+        },
+        "retrospective": {
+            "frequency": "Every 2 weeks",
+            "format": "What went well, What didn't, What to improve"
+        }
+    },
+    "platform_usage_guidelines": {
+        "slack_teams": {
+            "use_for": [
+                "Quick questions",
+                "Informal discussion",
+                "Daily updates"
+            ],
+            "response_time": "2 hours during work hours"
+        },
+        "github": {
+            "use_for": [
+                "Code review",
+                "Technical discussions",
+                "Bug reports"
+            ],
+            "response_time": "24 hours"
+        },
+        "trello_asana": {
+            "use_for": [
+                "Task tracking",
+                "Milestone planning",
+                "Assignment clarity"
+            ],
+            "update_frequency": "Daily"
+        },
+        "email": {
+            "use_for": [
+                "Formal communications",
+                "Stakeholder updates",
+                "Documentation"
+            ],
+            "response_time": "48 hours"
+        }
+    },
+    "escalation_protocol": {
+        "level_1": "Direct message to relevant team member",
+        "level_2": "Tag team lead in team channel",
+        "level_3": "Escalate to project manager/educator"
+    },
+    "inclusion_practices": {
+        "tagging": "Tag specific members when their input is needed",
+        "time_zones": "Be mindful of time zones when scheduling",
+        "accessibility": "Provide written summaries of video meetings",
+        "quiet_voices": "Actively solicit input from quieter team members"
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "isolated_members": [],
+    "passive_members": [
+        "M001"
+    ],
+    "dominant_members": [
+        "M003"
+    ],
+    "strong_pairs": [
+        {
+            "source": "M003",
+            "target": "M002",
+            "weight": 1634.718
+        },
+        {
+            "source": "M003",
+            "target": "M004",
+            "weight": 1506.657
+        },
+        {
+            "source": "M003",
+            "target": "M005",
+            "weight": 1535.334
+        }
+    ],
+    "weak_pairs": [
+        {
+            "source": "M001",
+            "target": "M002",
+            "weight": 46.533
+        },
+        {
+            "source": "M001",
+            "target": "M003",
+            "weight": 45.326
+        },
+        {
+            "source": "M001",
+            "target": "M005",
+            "weight": 71.264
+        },
+        {
+            "source": "M002",
+            "target": "M001",
+            "weight": 37.332
+        },
+        {
+            "source": "M003",
+            "target": "M001",
+            "weight": 142.22
+        },
+        {
+            "source": "M005",
+            "target": "M001",
+            "weight": 23.036
+        },
+        {
+            "source": "M005",
+            "target": "M002",
+            "weight": 230.111
+        },
+        {
+            "source": "M005",
+            "target": "M003",
+            "weight": 234.878
+        }
+    ],
+    "subgroups": [
+        [
+            "M004",
+            "M001",
+            "M005"
+        ],
+        [
+            "M002",
+            "M003"
+        ]
+    ],
+    "role_mismatch": []
+}

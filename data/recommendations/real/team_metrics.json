@@ -1,0 +1,18 @@
+{
+    "Sanjana": {
+        "role": "Team Lead",
+        "messages": 49,
+        "mentions_sent": 23
+    },
+    "Tvisha": {
+        "role": "Active Member",
+        "messages": 21,
+        "status": "Performing well"
+    },
+    "Vikram": {
+        "role": "Problematic Member",
+        "messages": 14,
+        "response_ratio": 0.31,
+        "status": "CRITICAL"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "density": 1.0,
+    "reciprocity": 1.0,
+    "num_nodes": 5,
+    "num_edges": 20,
+    "average_clustering": 1.0
+}

@@ -1,0 +1,340 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="M001">M001</option>
+                                
+                                    <option value="M002">M002</option>
+                                
+                                    <option value="M004">M004</option>
+                                
+                                    <option value="M003">M003</option>
+                                
+                                    <option value="M005">M005</option>
+                                
+                                    <option value="nan">nan</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderWidth": 2, "borderWidthSelected": 4, "color": "#ecf0f1", "font": {"color": "#2c3e50"}, "id": "M001", "label": "M001", "shape": "dot", "size": 27, "title": "\n            \u003cdiv style=\u0027font-family: Arial; font-size: 14px; max-width: 300px;\u0027\u003e\n                \u003ch3 style=\u0027margin: 0; color: #2c3e50;\u0027\u003eJordan Singh\u003c/h3\u003e\n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eMember ID:\u003c/b\u003e M001\u003c/p\u003e\n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eRole:\u003c/b\u003e Isolated\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #3498db;\u0027\u003eCommunication Stats\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce4 \u003cb\u003eMessages Sent:\u003c/b\u003e 316\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce5 \u003cb\u003eMessages Received:\u003c/b\u003e 780\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcca \u003cb\u003eActivity Score:\u003c/b\u003e 635.3\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcaa \u003cb\u003eInfluence Score:\u003c/b\u003e 530.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #e74c3c;\u0027\u003eNetwork Metrics\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83c\udfaf \u003cb\u003eDegree Centrality:\u003c/b\u003e 2.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udd17 \u003cb\u003eBetweenness:\u003c/b\u003e 0.917\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udccd \u003cb\u003eCloseness:\u003c/b\u003e 1.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003cp style=\u0027margin: 5px 0; font-size: 11px; color: #7f8c8d;\u0027\u003eClick to select \u2022 Drag to move\u003c/p\u003e\n            \u003c/div\u003e\n            "}, {"borderWidth": 2, "borderWidthSelected": 4, "color": "#3498db", "font": {"color": "#2c3e50"}, "id": "M002", "label": "M002", "shape": "dot", "size": 36, "title": "\n            \u003cdiv style=\u0027font-family: Arial; font-size: 14px; max-width: 300px;\u0027\u003e\n                \u003ch3 style=\u0027margin: 0; color: #2c3e50;\u0027\u003eRiley Das\u003c/h3\u003e\n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eMember ID:\u003c/b\u003e M002\u003c/p\u003e\n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eRole:\u003c/b\u003e Regular\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #3498db;\u0027\u003eCommunication Stats\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce4 \u003cb\u003eMessages Sent:\u003c/b\u003e 1236\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce5 \u003cb\u003eMessages Received:\u003c/b\u003e 1476\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcca \u003cb\u003eActivity Score:\u003c/b\u003e 1353.1\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcaa \u003cb\u003eInfluence Score:\u003c/b\u003e 845.8\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #e74c3c;\u0027\u003eNetwork Metrics\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83c\udfaf \u003cb\u003eDegree Centrality:\u003c/b\u003e 2.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udd17 \u003cb\u003eBetweenness:\u003c/b\u003e 0.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udccd \u003cb\u003eCloseness:\u003c/b\u003e 1.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003cp style=\u0027margin: 5px 0; font-size: 11px; color: #7f8c8d;\u0027\u003eClick to select \u2022 Drag to move\u003c/p\u003e\n            \u003c/div\u003e\n            "}, {"borderWidth": 2, "borderWidthSelected": 4, "color": "#f39c12", "font": {"color": "#2c3e50"}, "id": "M004", "label": "M004", "shape": "dot", "size": 47, "title": "\n            \u003cdiv style=\u0027font-family: Arial; font-size: 14px; max-width: 300px;\u0027\u003e\n                \u003ch3 style=\u0027margin: 0; color: #2c3e50;\u0027\u003eAvery Iyer\u003c/h3\u003e\n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eMember ID:\u003c/b\u003e M004\u003c/p\u003e\n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eRole:\u003c/b\u003e Active\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #3498db;\u0027\u003eCommunication Stats\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce4 \u003cb\u003eMessages Sent:\u003c/b\u003e 2196\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce5 \u003cb\u003eMessages Received:\u003c/b\u003e 1369\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcca \u003cb\u003eActivity Score:\u003c/b\u003e 2173.6\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcaa \u003cb\u003eInfluence Score:\u003c/b\u003e 1532.6\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #e74c3c;\u0027\u003eNetwork Metrics\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83c\udfaf \u003cb\u003eDegree Centrality:\u003c/b\u003e 2.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udd17 \u003cb\u003eBetweenness:\u003c/b\u003e 0.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udccd \u003cb\u003eCloseness:\u003c/b\u003e 1.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003cp style=\u0027margin: 5px 0; font-size: 11px; color: #7f8c8d;\u0027\u003eClick to select \u2022 Drag to move\u003c/p\u003e\n            \u003c/div\u003e\n            "}, {"borderWidth": 2, "borderWidthSelected": 4, "color": "#e74c3c", "font": {"color": "#2c3e50"}, "id": "M003", "label": "M003", "shape": "dot", "size": 60, "title": "\n            \u003cdiv style=\u0027font-family: Arial; font-size: 14px; max-width: 300px;\u0027\u003e\n                \u003ch3 style=\u0027margin: 0; color: #2c3e50;\u0027\u003eAlex Gupta\u003c/h3\u003e\n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eMember ID:\u003c/b\u003e M003\u003c/p\u003e\n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eRole:\u003c/b\u003e Leader\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #3498db;\u0027\u003eCommunication Stats\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce4 \u003cb\u003eMessages Sent:\u003c/b\u003e 2617\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce5 \u003cb\u003eMessages Received:\u003c/b\u003e 1082\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcca \u003cb\u003eActivity Score:\u003c/b\u003e 3190.8\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcaa \u003cb\u003eInfluence Score:\u003c/b\u003e 2892.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #e74c3c;\u0027\u003eNetwork Metrics\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83c\udfaf \u003cb\u003eDegree Centrality:\u003c/b\u003e 2.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udd17 \u003cb\u003eBetweenness:\u003c/b\u003e 0.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udccd \u003cb\u003eCloseness:\u003c/b\u003e 1.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003cp style=\u0027margin: 5px 0; font-size: 11px; color: #7f8c8d;\u0027\u003eClick to select \u2022 Drag to move\u003c/p\u003e\n            \u003c/div\u003e\n            "}, {"borderWidth": 2, "borderWidthSelected": 4, "color": "#95a5a6", "font": {"color": "#2c3e50"}, "id": "M005", "label": "M005", "shape": "dot", "size": 31, "title": "\n            \u003cdiv style=\u0027font-family: Arial; font-size: 14px; max-width: 300px;\u0027\u003e\n                \u003ch3 style=\u0027margin: 0; color: #2c3e50;\u0027\u003eAlex Kumar\u003c/h3\u003e\n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eMember ID:\u003c/b\u003e M005\u003c/p\u003e\n                \u003cp style=\u0027margin: 5px 0;\u0027\u003e\u003cb\u003eRole:\u003c/b\u003e Passive\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #3498db;\u0027\u003eCommunication Stats\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce4 \u003cb\u003eMessages Sent:\u003c/b\u003e 635\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udce5 \u003cb\u003eMessages Received:\u003c/b\u003e 1640\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcca \u003cb\u003eActivity Score:\u003c/b\u003e 884.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udcaa \u003cb\u003eInfluence Score:\u003c/b\u003e 453.7\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003ch4 style=\u0027margin: 5px 0; color: #e74c3c;\u0027\u003eNetwork Metrics\u003c/h4\u003e\n                \n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83c\udfaf \u003cb\u003eDegree Centrality:\u003c/b\u003e 2.0\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udd17 \u003cb\u003eBetweenness:\u003c/b\u003e 0.25\u003c/p\u003e\n                \u003cp style=\u0027margin: 3px 0;\u0027\u003e\ud83d\udccd \u003cb\u003eCloseness:\u003c/b\u003e 1.0\u003c/p\u003e\n                \n                \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n                \u003cp style=\u0027margin: 5px 0; font-size: 11px; color: #7f8c8d;\u0027\u003eClick to select \u2022 Drag to move\u003c/p\u003e\n            \u003c/div\u003e\n            "}, {"color": "#97c2fc", "font": {"color": "#2c3e50"}, "id": "nan", "label": "nan", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M001", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM001 \u2192 M002\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 4\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 17:23\u003cbr\u003e\u2022 reply on slack at 20:45\u003cbr\u003e\u2022 reply on slack at 13:18\u003cbr\u003e\u2022 reply on slack at 10:22\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M002", "value": 1.4, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M002", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM002 \u2192 M001\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 6\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 10:09\u003cbr\u003e\u2022 reply on slack at 17:10\u003cbr\u003e\u2022 reply on slack at 18:47\u003cbr\u003e\u2022 reply on slack at 11:25\u003cbr\u003e\u2022 reply on slack at 14:47\u003cbr\u003e... and 1 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M001", "value": 1.6, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M002", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM002 \u2192 M004\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 19\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 10:20\u003cbr\u003e\u2022 reply on slack at 22:56\u003cbr\u003e\u2022 reply on slack at 17:32\u003cbr\u003e\u2022 reply on slack at 08:09\u003cbr\u003e\u2022 reply on slack at 12:34\u003cbr\u003e... and 14 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M004", "value": 2.9, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M002", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM002 \u2192 M003\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 23\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 13:09\u003cbr\u003e\u2022 reply on slack at 15:06\u003cbr\u003e\u2022 reply on slack at 17:14\u003cbr\u003e\u2022 reply on slack at 12:28\u003cbr\u003e\u2022 reply on slack at 14:31\u003cbr\u003e... and 18 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M003", "value": 3.3, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M002", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM002 \u2192 M005\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 29\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 14:37\u003cbr\u003e\u2022 reply on slack at 14:55\u003cbr\u003e\u2022 reply on slack at 17:15\u003cbr\u003e\u2022 reply on slack at 15:55\u003cbr\u003e\u2022 reply on slack at 11:32\u003cbr\u003e... and 24 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M005", "value": 3.9, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M002", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM002 \u2192 nan\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 9\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 15:08\u003cbr\u003e\u2022 reply on slack at 11:14\u003cbr\u003e\u2022 reply on slack at 16:50\u003cbr\u003e\u2022 reply on slack at 15:51\u003cbr\u003e\u2022 reply on slack at 08:13\u003cbr\u003e... and 4 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "nan", "value": 1.9, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M003", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM003 \u2192 M002\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 49\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 08:07\u003cbr\u003e\u2022 reply on slack at 08:17\u003cbr\u003e\u2022 reply on slack at 08:57\u003cbr\u003e\u2022 reply on slack at 14:07\u003cbr\u003e\u2022 reply on slack at 14:09\u003cbr\u003e... and 44 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M002", "value": 5, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M004", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM004 \u2192 M002\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 30\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 16:34\u003cbr\u003e\u2022 reply on slack at 09:11\u003cbr\u003e\u2022 reply on slack at 12:36\u003cbr\u003e\u2022 reply on slack at 14:14\u003cbr\u003e\u2022 reply on slack at 15:04\u003cbr\u003e... and 25 more\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M002", "value": 4.0, "width": 1}, {"arrows": "to", "color": {"color": "rgba(149, 165, 166, 0.5)", "highlight": "rgba(52, 152, 219, 0.8)"}, "from": "M005", "title": "\n        \u003cdiv style=\u0027font-family: Arial; font-size: 12px;\u0027\u003e\n            \u003ch4 style=\u0027margin: 0;\u0027\u003eM005 \u2192 M002\u003c/h4\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTotal Interactions:\u003c/b\u003e 5\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003ePlatforms:\u003c/b\u003e slack\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eTypes:\u003c/b\u003e reply\u003c/p\u003e\n            \u003chr style=\u0027margin: 5px 0;\u0027\u003e\n            \u003cp style=\u0027margin: 3px 0;\u0027\u003e\u003cb\u003eRecent:\u003c/b\u003e\u003c/p\u003e\n            \u003cp style=\u0027margin: 3px 0; font-size: 11px;\u0027\u003e\u2022 reply on slack at 10:57\u003cbr\u003e\u2022 reply on slack at 09:34\u003cbr\u003e\u2022 reply on slack at 11:05\u003cbr\u003e\u2022 reply on slack at 08:18\u003cbr\u003e\u2022 reply on slack at 16:20\u003c/p\u003e\n        \u003c/div\u003e\n        ", "to": "M002", "value": 1.5, "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"shape": "dot", "font": {"size": 16, "face": "Arial", "bold": true}, "borderWidth": 2, "shadow": {"enabled": true, "color": "rgba(0,0,0,0.1)", "size": 5, "x": 2, "y": 2}}, "edges": {"smooth": {"enabled": true, "type": "dynamic", "roundness": 0.5}, "arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "shadow": {"enabled": true, "color": "rgba(0,0,0,0.05)", "size": 5, "x": 1, "y": 1}}, "physics": {"enabled": true, "barnesHut": {"gravitationalConstant": -8000, "centralGravity": 0.3, "springLength": 200, "springConstant": 0.04, "damping": 0.09, "avoidOverlap": 0.5}, "stabilization": {"enabled": true, "iterations": 200, "updateInterval": 25}}, "interaction": {"hover": true, "hoverConnectedEdges": true, "selectConnectedEdges": true, "tooltipDelay": 100, "hideEdgesOnDrag": false, "navigationButtons": true, "keyboard": {"enabled": true}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
